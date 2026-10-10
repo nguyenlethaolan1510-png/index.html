@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Lan's Graduation Day 🎓</title>
+  
+  <!-- Tải trước trang 1 để vừa mở link là hiện ngay lập tức -->
+  <link rel="preload" as="image" href="page1.png">
+
   <style>
     * {
       box-sizing: border-box;
@@ -11,17 +15,16 @@
       padding: 0;
     }
     body {
-      background-color: #f7f3ed; /* Màu nền ấm hợp vibe vintage */
+      background-color: #f7f3ed;
       display: flex;
       justify-content: center;
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* Khung hiển thị thiệp mô phỏng trang điện thoại */
     .card-container {
       width: 100%;
-      max-width: 480px; /* Vừa vặn chuẩn màn hình di động */
+      max-width: 480px;
       background: #ffffff;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       position: relative;
@@ -37,12 +40,14 @@
       width: 100%;
       height: auto;
       display: block;
+      /* Hiệu ứng chuyển cảnh nhẹ khi ảnh tải xong */
+      transition: opacity 0.3s;
     }
 
-    /* Nút bấm máy ảnh đặt ở Trang 2 (Guidance) */
+    /* Vùng bấm máy ảnh ở Trang 2 */
     .camera-trigger {
       position: absolute;
-      top: 17%;    /* Điều chỉnh tọa độ khớp với sticker máy ảnh trang 2 */
+      top: 17%;
       left: 10%;
       width: 20%;
       height: 8%;
@@ -54,7 +59,7 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* Lớp phủ mờ nền khi bấm xem dải ảnh */
+    /* Lớp phủ mờ nền */
     .overlay {
       position: fixed;
       inset: 0;
@@ -70,7 +75,7 @@
       pointer-events: auto;
     }
 
-    /* Popup dải ảnh photostrip */
+    /* Popup dải ảnh */
     .modal {
       position: fixed;
       top: 50%;
@@ -116,33 +121,30 @@
 <body>
 
   <div class="card-container">
-    <!-- Trang 1 -->
+    <!-- Trang 1 tải ưu tiên cao nhất -->
     <div class="page-wrapper">
-      <img class="card-page" src="page1.png" alt="Trang 1">
+      <img class="card-page" src="page1.png" alt="Trang 1" fetchpriority="high">
     </div>
 
-    <!-- Trang 2 (Có nút bấm mở dải ảnh photostrip) -->
+    <!-- Các trang tiếp theo bật lazy loading để cuộn tới đâu tải tới đó -->
     <div class="page-wrapper">
-      <img class="card-page" src="page2.png" alt="Trang 2">
-      <!-- Vùng bấm máy ảnh -->
+      <img class="card-page" src="page2.png" alt="Trang 2" loading="lazy">
       <button class="camera-trigger" id="openBtn" title="Xem dải ảnh"></button>
     </div>
 
-    <!-- Trang 3 -->
     <div class="page-wrapper">
-      <img class="card-page" src="page3.png" alt="Trang 3">
+      <img class="card-page" src="page3.png" alt="Trang 3" loading="lazy">
     </div>
 
-    <!-- Trang 4 -->
     <div class="page-wrapper">
-      <img class="card-page" src="page4.png" alt="Trang 4">
+      <img class="card-page" src="page4.png" alt="Trang 4" loading="lazy">
     </div>
   </div>
 
-  <!-- Popup dải ảnh -->
+  <!-- Popup photostrip -->
   <div class="overlay" id="overlay"></div>
   <div class="modal" id="modal">
-    <img class="photostrip-img" src="https://i.ibb.co/d1tY80Y/D-i-nh.png" alt="Dải ảnh kỷ niệm">
+    <img class="photostrip-img" src="https://i.ibb.co/d1tY80Y/D-i-nh.png" alt="Dải ảnh kỷ niệm" loading="lazy">
     <button class="close-btn" id="closeBtn">Đóng ✕</button>
   </div>
 
